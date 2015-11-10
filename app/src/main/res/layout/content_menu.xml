@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.fais.tictactoe.presentation.activities.MenuActivity"
+    tools:showIn="@layout/activity_menu">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_titles" />
+
+        <TextView
+            android:id="@+id/boardSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_titles" />
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/boardSize"
+            android:max="7"
+            android:progress="0" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25">
+
+        <TextView
+            android:id="@+id/opponent_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/choose_opponent"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_titles" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/opponent_text_view"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/opponent_checkbox_human"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spinners_margin"
+                android:layout_marginBottom="@dimen/spinners_margin"
+                android:layout_marginTop="@dimen/spinners_margin"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spinners_margin"
+                android:layout_marginTop="@dimen/spinners_margin"
+                android:layout_weight="1"
+                android:text="@string/opponent_human"
+                android:textAlignment="textStart" />
+
+            <CheckBox
+                android:id="@+id/opponent_checkbox_ai"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spinners_margin"
+                android:layout_marginBottom="@dimen/spinners_margin"
+                android:layout_marginTop="@dimen/spinners_margin"
+                android:layout_weight="1">
+
+            </CheckBox>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spinners_margin"
+                android:layout_marginTop="@dimen/spinners_margin"
+                android:layout_weight="1"
+                android:text="@string/opponent_ai"
+                android:textAlignment="textStart" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/difficulty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/difficulty_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_difficulty"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_titles" />
+
+        <Spinner
+            android:id="@+id/difficulty_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/difficulty_text_view"
+            android:layout_margin="@dimen/spinners_margin"
+            android:entries="@array/difficulties"
+            android:prompt="@string/choose_difficulty_spinner" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/start_game_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="0.15"
+        android:clickable="false"
+        android:text="@string/start_game_button" />
+
+
+</LinearLayout>
