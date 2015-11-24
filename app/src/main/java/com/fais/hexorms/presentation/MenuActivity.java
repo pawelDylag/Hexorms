@@ -116,7 +116,6 @@ public class MenuActivity extends Activity {
     public void onClick(View view){
     }
 
-
     private void initSizePicker() {
         boardSizeTextView.setText(boardSize + " x " + boardSize);
         sizePicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
