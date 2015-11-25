@@ -16,30 +16,172 @@ public class HexBoard {
         // init new board with hex items
         this.width = width;
         this.height = height;
-        mBoard = buildNewBoard(width,height);
+        mBoard = buildNewBoard(width, height);
     }
 
     private Hex[][] buildNewBoard(int width, int height) {
         Hex[][] newBoard = new Hex[width][height];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                newBoard[i][j] = new Hex(i, j, Constants.EMPTY_HEX);
+                newBoard[j][i] = new Hex(j, i, Constants.EMPTY_HEX);
             }
         }
         return newBoard;
     }
 
-    public Hex getAdjectantHex(Hex hex, int direction) {
+    public Hex getAdjacentHex(Hex hex, int direction) {
         // TODO: IMPLEMENT THIS
         // move tylko zwraca Hexa dla kierunku -> robak sobie go potem modyfikuje
-        return null;
+        int x = hex.getX();
+        int y = hex.getY();
+        int last_x = height - 1;
+        int last_y = width - 1;
+
+        switch (direction) {
+
+            case Constants.DIRECTION_ONE: {
+                if (y == 0) {
+                    if (x == last_x) {
+                        x = 0;
+                        y = last_y;
+                        break;
+                    } else {
+                        y = last_y;
+                        x++;
+                        break;
+                    }
+                } else if (y % 2 == 0) {
+                    y--;
+                    break;
+                } else if (y % 2 != 0) {
+                    if (x == last_x) {
+                        x = 0;
+                        y--;
+                        break;
+                    } else {
+                        x++;
+                        y--;
+                        break;
+                    }
+                }
+                break;
+            }
+
+            case Constants.DIRECTION_TWO: {
+                if (x == last_x) {
+                    x = 0;
+                    break;
+                } else {
+                    x++;
+                    break;
+                }
+            }
+
+            case Constants.DIRECTION_THREE: {
+                if (y == last_y) {
+                    if (x == last_x) {
+                        y = 0;
+                        x = 0;
+                        break;
+                    } else {
+                        y = 0;
+                        x++;
+                        break;
+                    }
+                } else if (y % 2 == 0) {
+                    y++;
+                    break;
+                } else if (y % 2 != 0) {
+                    if (x == last_x) {
+                        x = 0;
+                        y++;
+                        break;
+                    } else {
+                        x++;
+                        y++;
+                        break;
+                    }
+                }
+                break;
+            }
+            case Constants.DIRECTION_FOUR: {
+
+                if (y == last_y) {
+                    if (x == 0) {
+                        x = last_x;
+                        y = 0;
+                        break;
+                    } else {
+                        x--;
+                        y = 0;
+                        break;
+                    }
+                } else if (y % 2 == 0) {
+                    if (x == 0) {
+                        x = last_x;
+                        y++;
+                        break;
+                    } else {
+                        x--;
+                        y++;
+                        break;
+                    }
+                } else if (y % 2 != 0) {
+                    y--;
+                    break;
+                }
+                break;
+
+            }
+            case Constants.DIRECTION_FIVE: {
+                if (x == 0) {
+                    x = last_x;
+                    break;
+                } else {
+                    x--;
+                    break;
+                }
+            }
+            case Constants.DIRECTION_SIX: {
+                if (y == 0) {
+                    if (x == 0) {
+                        x = last_x;
+                        y = last_y;
+                        break;
+                    } else {
+                        x--;
+                        y = last_y;
+                        break;
+                    }
+                } else if (y % 2 == 0) {
+                    if (x == 0) {
+                        x = last_x;
+                        y--;
+                        break;
+                    } else {
+                        x--;
+                        y--;
+                        break;
+                    }
+                } else if (y % 2 != 0) {
+                    y--;
+                    break;
+                }
+            }
+            default:
+                return null;
+        }
+        return new Hex(x, y, hex.getContent());
+
     }
 
     /**
      * Rusza obiektem na nowy hex i zeruje stary
+     *
      * @param from
      * @param to
      */
+
     public void move(Hex from, Hex to) {
         to.setContent(from.getContent());
         from.setContent(Constants.EMPTY_HEX);
@@ -74,7 +216,6 @@ public class HexBoard {
     public Hex[][] getBoard() {
         return this.mBoard;
     }
-
 
 
 }

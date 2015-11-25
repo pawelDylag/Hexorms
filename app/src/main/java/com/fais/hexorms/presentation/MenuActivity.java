@@ -1,27 +1,27 @@
 package com.fais.hexorms.presentation;
 
-        import android.app.Activity;
-        import android.content.Intent;
-        import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.CheckBox;
-        import android.widget.RelativeLayout;
-        import android.widget.SeekBar;
-        import android.widget.Spinner;
-        import android.widget.TextView;
-        import android.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
-        import com.fais.hexorms.R;
+import com.fais.hexorms.R;
 
-        import butterknife.Bind;
-        import butterknife.ButterKnife;
-        import butterknife.OnCheckedChanged;
-        import butterknife.OnClick;
-        import butterknife.OnItemSelected;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
+import butterknife.OnItemSelected;
 
 
 public class MenuActivity extends Activity {
@@ -81,23 +81,24 @@ public class MenuActivity extends Activity {
     }
 
     @OnCheckedChanged(R.id.opponent_checkbox_human)
-    public void onHumanChecked(boolean checked){
-        if(checked){
+    public void onHumanChecked(boolean checked) {
+        if (checked) {
             aiCheckbox.setChecked(false);
             difficultyLayout.setVisibility(View.INVISIBLE);
             startButton.setClickable(true);
-        }else {
+        } else {
             aiCheckbox.setChecked(true);
             difficultyLayout.setVisibility(View.VISIBLE);
         }
     }
+
     @OnCheckedChanged(R.id.opponent_checkbox_ai)
-    public void onAIChecked(boolean checked){
-        if(checked){
+    public void onAIChecked(boolean checked) {
+        if (checked) {
             humanCheckbox.setChecked(false);
             difficultyLayout.setVisibility(View.VISIBLE);
             difficultySpinner.setSelection(0);
-        }else {
+        } else {
             humanCheckbox.setChecked(true);
             startButton.setClickable(true);
             difficultyLayout.setVisibility(View.INVISIBLE);
@@ -105,7 +106,7 @@ public class MenuActivity extends Activity {
     }
 
     @OnItemSelected(R.id.difficulty_spinner)
-    void onItemSelected(int position){
+    void onItemSelected(int position) {
         if (aiCheckbox.isChecked()) {
             startButton.setClickable(true);
             difficultyPosition = position;
@@ -113,7 +114,7 @@ public class MenuActivity extends Activity {
     }
 
     @OnClick(R.id.start_game_button)
-    public void onClick(View view){
+    public void onClick(View view) {
     }
 
     private void initSizePicker() {

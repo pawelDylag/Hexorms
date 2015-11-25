@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/choose_opponent"
+            android:text="TEST"
             android:textAlignment="center"
             android:textSize="@dimen/text_size_titles" />
 
@@ -82,7 +82,7 @@
                 android:layout_marginBottom="@dimen/spinners_margin"
                 android:layout_marginTop="@dimen/spinners_margin"
                 android:layout_weight="1"
-                android:text="@string/opponent_human"
+                android:text="TEST"
                 android:textAlignment="textStart" />
 
             <CheckBox
@@ -102,7 +102,7 @@
                 android:layout_marginBottom="@dimen/spinners_margin"
                 android:layout_marginTop="@dimen/spinners_margin"
                 android:layout_weight="1"
-                android:text="@string/opponent_ai"
+                android:text="TEST"
                 android:textAlignment="textStart" />
         </LinearLayout>
     </RelativeLayout>
@@ -118,7 +118,7 @@
             android:id="@+id/difficulty_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/choose_difficulty"
+            android:text="TEST"
             android:textAlignment="center"
             android:textSize="@dimen/text_size_titles" />
 
@@ -128,8 +128,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/difficulty_text_view"
             android:layout_margin="@dimen/spinners_margin"
-            android:entries="@array/difficulties"
-            android:prompt="@string/choose_difficulty_spinner" />
+            android:entries="@array/difficulties" />
     </RelativeLayout>
 
     <Button

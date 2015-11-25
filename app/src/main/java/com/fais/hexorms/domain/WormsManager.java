@@ -3,7 +3,6 @@ package com.fais.hexorms.domain;
 import com.fais.hexorms.data.Hex;
 import com.fais.hexorms.data.Worm;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -61,7 +60,7 @@ public class WormsManager {
         boolean properDirection = false;
         Hex newHex = null;
         while (!properDirection) {
-            newHex = simulation.getBoard().getAdjectantHex(worm.getHex(), worm.rotate());
+            newHex = simulation.getBoard().getAdjacentHex(worm.getHex(), worm.rotate());
             if (newHex.isMovePossible()) {
                 properDirection = true;
             }
