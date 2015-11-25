@@ -34,12 +34,12 @@ public class HexBoard {
         // move tylko zwraca Hexa dla kierunku -> robak sobie go potem modyfikuje
         int x = hex.getX();
         int y = hex.getY();
-        int last_x = height - 1;
-        int last_y = width - 1;
+        int last_x = width - 1;
+        int last_y = height - 1;
 
         switch (direction) {
 
-            case Constants.DIRECTION_ONE: {
+            case 1: {
                 if (y == 0) {
                     if (x == last_x) {
                         x = 0;
@@ -67,7 +67,7 @@ public class HexBoard {
                 break;
             }
 
-            case Constants.DIRECTION_TWO: {
+            case 2: {
                 if (x == last_x) {
                     x = 0;
                     break;
@@ -77,7 +77,7 @@ public class HexBoard {
                 }
             }
 
-            case Constants.DIRECTION_THREE: {
+            case 3: {
                 if (y == last_y) {
                     if (x == last_x) {
                         y = 0;
@@ -104,7 +104,7 @@ public class HexBoard {
                 }
                 break;
             }
-            case Constants.DIRECTION_FOUR: {
+            case 4: {
 
                 if (y == last_y) {
                     if (x == 0) {
@@ -127,13 +127,14 @@ public class HexBoard {
                         break;
                     }
                 } else if (y % 2 != 0) {
-                    y--;
+                    //
+                    y++;
                     break;
                 }
                 break;
 
             }
-            case Constants.DIRECTION_FIVE: {
+            case 5: {
                 if (x == 0) {
                     x = last_x;
                     break;
@@ -142,7 +143,7 @@ public class HexBoard {
                     break;
                 }
             }
-            case Constants.DIRECTION_SIX: {
+            case 6: {
                 if (y == 0) {
                     if (x == 0) {
                         x = last_x;
@@ -171,8 +172,8 @@ public class HexBoard {
             default:
                 return null;
         }
-        return new Hex(x, y, hex.getContent());
 
+        return new Hex(x, y, hex.getContent());
     }
 
     /**
