@@ -10,13 +10,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fais.tictactoe.presentation.activities.MenuActivity"
+    tools:context="com.fais.hexorms.presentation.activities.MenuActivity"
     tools:showIn="@layout/activity_menu">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.25">
+        android:layout_weight="0.4">
 
         <TextView
             android:id="@+id/textView"
@@ -24,111 +24,128 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:text="@string/choose_size"
             android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
             android:textSize="@dimen/text_size_titles" />
+
+
+        <SeekBar
+            android:id="@+id/seekbar_width"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:max="15"
+            android:progress="0" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/seekbar_width">
+
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                android:layout_width="wrap_content"
+                android:layout_height="300dp">
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                    android:id="@+id/mySeekBar"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:max="15"
+                    app:seekBarRotation="CW90" />
+                <!-- Rotation: CW90 or CW270 -->
+            </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/boardSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/board_size" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4">
+
+        <TextView
+            android:id="@+id/worms_count_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="5dp"
+            android:text="@string/worms_count"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_titles" />
+
+        <TextView
+            android:id="@+id/worms_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/worms_count_textview"
             android:padding="5dp"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/text_size_titles" />
 
         <SeekBar
-            android:id="@+id/seekbar"
+            android:id="@+id/seekbar_worms_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/boardSize"
-            android:max="7"
+            android:layout_below="@id/worms_number"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:max="15"
             android:progress="0" />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.25">
-
         <TextView
-            android:id="@+id/opponent_text_view"
+            android:id="@+id/bacteria_factor_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="TEST"
+            android:layout_below="@id/seekbar_worms_count"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:text="@string/bacteria_factor"
             android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/text_size_titles" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/opponent_text_view"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/opponent_checkbox_human"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spinners_margin"
-                android:layout_marginBottom="@dimen/spinners_margin"
-                android:layout_marginTop="@dimen/spinners_margin"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spinners_margin"
-                android:layout_marginTop="@dimen/spinners_margin"
-                android:layout_weight="1"
-                android:text="TEST"
-                android:textAlignment="textStart" />
-
-            <CheckBox
-                android:id="@+id/opponent_checkbox_ai"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spinners_margin"
-                android:layout_marginBottom="@dimen/spinners_margin"
-                android:layout_marginTop="@dimen/spinners_margin"
-                android:layout_weight="1">
-
-            </CheckBox>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spinners_margin"
-                android:layout_marginTop="@dimen/spinners_margin"
-                android:layout_weight="1"
-                android:text="TEST"
-                android:textAlignment="textStart" />
-        </LinearLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/difficulty_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.25"
-        android:visibility="invisible">
 
         <TextView
-            android:id="@+id/difficulty_text_view"
+            android:id="@+id/bacteria_factor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TEST"
+            android:layout_below="@id/bacteria_factor_textview"
+            android:padding="5dp"
             android:textAlignment="center"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/text_size_titles" />
 
-        <Spinner
-            android:id="@+id/difficulty_spinner"
+        <SeekBar
+            android:id="@+id/seekbar_bacteria_factor"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/difficulty_text_view"
-            android:layout_margin="@dimen/spinners_margin"
-            android:entries="@array/difficulties" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bacteria_factor"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:max="100"
+            android:progress="100" />
+
     </RelativeLayout>
 
     <Button
@@ -136,9 +153,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
-        android:layout_weight="0.15"
-        android:clickable="false"
-        android:text="@string/start_game_button" />
+        android:layout_weight="0.2"
+        android:background="@color/colorPrimary"
+        android:text="@string/start_game_button"
+        android:textColor="@android:color/white" />
 
 
 </LinearLayout>

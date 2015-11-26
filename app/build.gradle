@@ -27,4 +27,8 @@ dependencies {
 
     // ButterKnife for view injections
     compile 'com.jakewharton:butterknife:7.0.1'
+
+    //vertical seekbar
+    compile 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.5.2'
+
 }

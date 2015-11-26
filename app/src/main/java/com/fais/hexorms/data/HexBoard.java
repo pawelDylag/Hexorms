@@ -39,7 +39,7 @@ public class HexBoard {
 
         switch (direction) {
 
-            case 1: {
+            case Constants.DIRECTION_NORTH_EAST: {
                 if (y == 0) {
                     if (x == last_x) {
                         x = 0;
@@ -53,7 +53,7 @@ public class HexBoard {
                 } else if (y % 2 == 0) {
                     y--;
                     break;
-                } else if (y % 2 != 0) {
+                } else {
                     if (x == last_x) {
                         x = 0;
                         y--;
@@ -64,10 +64,9 @@ public class HexBoard {
                         break;
                     }
                 }
-                break;
             }
 
-            case 2: {
+            case Constants.DIRECTION_EAST: {
                 if (x == last_x) {
                     x = 0;
                     break;
@@ -77,7 +76,7 @@ public class HexBoard {
                 }
             }
 
-            case 3: {
+            case Constants.DIRECTION_SOUTH_EAST: {
                 if (y == last_y) {
                     if (x == last_x) {
                         y = 0;
@@ -91,7 +90,7 @@ public class HexBoard {
                 } else if (y % 2 == 0) {
                     y++;
                     break;
-                } else if (y % 2 != 0) {
+                } else {
                     if (x == last_x) {
                         x = 0;
                         y++;
@@ -102,9 +101,9 @@ public class HexBoard {
                         break;
                     }
                 }
-                break;
             }
-            case 4: {
+
+            case Constants.DIRECTION_SOUTH_WEST: {
 
                 if (y == last_y) {
                     if (x == 0) {
@@ -126,15 +125,13 @@ public class HexBoard {
                         y++;
                         break;
                     }
-                } else if (y % 2 != 0) {
-                    //
+                } else {
                     y++;
                     break;
                 }
-                break;
-
             }
-            case 5: {
+
+            case Constants.DIRECTION_WEST: {
                 if (x == 0) {
                     x = last_x;
                     break;
@@ -143,7 +140,7 @@ public class HexBoard {
                     break;
                 }
             }
-            case 6: {
+            case Constants.DIRECTION_NORTH_WEST: {
                 if (y == 0) {
                     if (x == 0) {
                         x = last_x;
@@ -164,7 +161,7 @@ public class HexBoard {
                         y--;
                         break;
                     }
-                } else if (y % 2 != 0) {
+                } else {
                     y--;
                     break;
                 }

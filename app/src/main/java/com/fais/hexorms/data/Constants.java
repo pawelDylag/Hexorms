@@ -10,18 +10,17 @@ public class Constants {
 
     public static final int BACTERIA_BONUS = 10;
 
-    //NORTH-EAST
-    public static final int DIRECTION_ONE = 1;
-    //EAST
-    public static final int DIRECTION_TWO = 2;
-    //SOUTH-EAST
-    public static final int DIRECTION_THREE = 3;
-    //SOUTH-WEST
-    public static final int DIRECTION_FOUR = 4;
-    //WEST
-    public static final int DIRECTION_FIVE = 5;
-    //NORTH-WEST
-    public static final int DIRECTION_SIX = 6;
+    public static final int DIRECTION_NORTH_EAST = 1;
+    public static final int DIRECTION_EAST = 2;
+    public static final int DIRECTION_SOUTH_EAST = 3;
+    public static final int DIRECTION_SOUTH_WEST = 4;
+    public static final int DIRECTION_WEST = 5;
+    public static final int DIRECTION_NORTH_WEST = 6;
 
+    // intent names
+    public static final String INTENT_BOARD_WIDTH = "intentBoardWidth";
+    public static final String INTENT_BOARD_HEIGHT = "intentBoardHeight";
+    public static final String INTENT_WORMS_COUNT = "intentWormsCount";
+    public static final String INTENT_BACTERIA_FACTOR = "intentBacteriaFactor";
 
 }

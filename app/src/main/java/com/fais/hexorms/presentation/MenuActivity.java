@@ -1,21 +1,30 @@
 package com.fais.hexorms.presentation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.fais.hexorms.R;
+import com.fais.hexorms.data.Constants;
+import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,25 +35,31 @@ import butterknife.OnItemSelected;
 
 public class MenuActivity extends Activity {
 
-    @Bind(R.id.seekbar)
-    SeekBar sizePicker;
+    @Bind(R.id.seekbar_width)
+    SeekBar widthPicker;
+    @Bind(R.id.mySeekBar)
+    VerticalSeekBar heightPicker;
+    @Bind(R.id.seekbar_worms_count)
+    SeekBar wormsPicker;
+    @Bind(R.id.seekbar_bacteria_factor)
+    SeekBar bacteriaFactorPicker;
+
     @Bind(R.id.boardSize)
     TextView boardSizeTextView;
-    @Bind(R.id.opponent_checkbox_human)
-    CheckBox humanCheckbox;
-    @Bind(R.id.opponent_checkbox_ai)
-    CheckBox aiCheckbox;
-    @Bind(R.id.difficulty_spinner)
-    Spinner difficultySpinner;
+    @Bind(R.id.worms_number)
+    TextView wormsCountTextView;
+    @Bind(R.id.bacteria_factor)
+    TextView bacteriaFactorTextView;
     @Bind(R.id.start_game_button)
     Button startButton;
-    @Bind(R.id.difficulty_layout)
-    RelativeLayout difficultyLayout;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    private int difficultyPosition = -1;
-    private int boardSize = 3;
+    private int boardWidth = 3;
+    private int boardHeight = 3;
+    private int wormsNumber = 1;
+    private int bacteriaFactorNumber = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +73,8 @@ public class MenuActivity extends Activity {
         if (getActionBar() != null) {
             getActionBar().setTitle(R.string.title_activity_menu);
         }
-        // set initial values for checkboxes
-        humanCheckbox.setChecked(true);
-        aiCheckbox.setChecked(false);
-        // setup  board size picker
-        initSizePicker();
+
+        initPickers();
     }
 
     @Override
@@ -75,69 +87,105 @@ public class MenuActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        startActivity(new Intent(MenuActivity.this, Pop.class));
         // All clicks on menu items needs to be here
         return super.onOptionsItemSelected(item);
     }
 
-    @OnCheckedChanged(R.id.opponent_checkbox_human)
-    public void onHumanChecked(boolean checked) {
-        if (checked) {
-            aiCheckbox.setChecked(false);
-            difficultyLayout.setVisibility(View.INVISIBLE);
-            startButton.setClickable(true);
-        } else {
-            aiCheckbox.setChecked(true);
-            difficultyLayout.setVisibility(View.VISIBLE);
-        }
-    }
 
-    @OnCheckedChanged(R.id.opponent_checkbox_ai)
-    public void onAIChecked(boolean checked) {
-        if (checked) {
-            humanCheckbox.setChecked(false);
-            difficultyLayout.setVisibility(View.VISIBLE);
-            difficultySpinner.setSelection(0);
-        } else {
-            humanCheckbox.setChecked(true);
-            startButton.setClickable(true);
-            difficultyLayout.setVisibility(View.INVISIBLE);
-        }
-    }
 
-    @OnItemSelected(R.id.difficulty_spinner)
-    void onItemSelected(int position) {
-        if (aiCheckbox.isChecked()) {
-            startButton.setClickable(true);
-            difficultyPosition = position;
-        }
-    }
 
     @OnClick(R.id.start_game_button)
     public void onClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), SimulationActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.INTENT_BOARD_WIDTH, boardWidth);
+        bundle.putInt(Constants.INTENT_BOARD_HEIGHT, boardHeight);
+        bundle.putInt(Constants.INTENT_WORMS_COUNT, wormsNumber);
+        bundle.putInt(Constants.INTENT_BACTERIA_FACTOR, bacteriaFactorNumber);
+
+        intent.putExtras(bundle);
+        Toast.makeText(this, "width: " + boardWidth + "\nheight: " + boardHeight + "\nworms: " + wormsNumber + "\nbacteria: "+ bacteriaFactorNumber, Toast.LENGTH_SHORT).show();
+        //startActivity(new Intent(MenuActivity.this, Pop.class));
+
+        //startActivity(intent);
     }
 
-    private void initSizePicker() {
-        boardSizeTextView.setText(boardSize + " x " + boardSize);
-        sizePicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+    private void initPickers() {
+        boardSizeTextView.setText(boardWidth + " x " + boardHeight);
+        wormsCountTextView.setText("" + wormsNumber);
+        bacteriaFactorTextView.setText("" + bacteriaFactorNumber + "%");
+
+
+        widthPicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // add minimal size
-                boardSize = 3 + progress;
-                boardSizeTextView.setText(boardSize + " x " + boardSize);
+                boardWidth = 3 + progress;
+                boardSizeTextView.setText(boardWidth + " x " + boardHeight);
+                wormsPicker.setMax((boardWidth * boardHeight) / 2);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
 
+        heightPicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // add minimal size
+                boardHeight = 3 + progress;
+                boardSizeTextView.setText(boardWidth + " x " + boardHeight);
+                wormsPicker.setMax((boardWidth * boardHeight) / 2);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        wormsPicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                wormsNumber = 1 + progress;
+                wormsCountTextView.setText("" + wormsNumber);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        bacteriaFactorPicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                bacteriaFactorNumber = progress;
+                bacteriaFactorTextView.setText("" + bacteriaFactorNumber + "%");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
     }
-
 
 }

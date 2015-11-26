@@ -6,4 +6,5 @@
     <dimen name="spinners_margin">10dp</dimen>
 
     <dimen name="text_size_titles">20sp</dimen>
+    <dimen name="board_size">40sp</dimen>
 </resources>
