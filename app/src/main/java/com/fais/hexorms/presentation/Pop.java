@@ -2,20 +2,29 @@ package com.fais.hexorms.presentation;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.DisplayMetrics;
+import android.widget.TextView;
 
 import com.fais.hexorms.R;
 
-/**
- * Created by Kuba on 26.11.2015.
- */
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+
 public class Pop extends Activity {
+
+    @Bind(R.id.info_textview)
+    TextView infoTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.pop_window);
+        ButterKnife.bind(this);
+
+        infoTextView.setText(Html.fromHtml(getString(R.string.info)));
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -23,6 +32,6 @@ public class Pop extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.85),(int)(height*.75));
+        getWindow().setLayout((int)(width*.88),(int)(height*.75));
     }
 }

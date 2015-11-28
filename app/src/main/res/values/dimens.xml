@@ -4,7 +4,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="spinners_margin">10dp</dimen>
+    <dimen name="textview_padding">5dp</dimen>
+    <dimen name="seekbar_margin">20dp</dimen>
 
     <dimen name="text_size_titles">20sp</dimen>
-    <dimen name="board_size">40sp</dimen>
+    <dimen name="board_size">35sp</dimen>
 </resources>

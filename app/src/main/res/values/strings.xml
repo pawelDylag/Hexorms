@@ -2,19 +2,15 @@
     <string name="app_name">Hexorms</string>
     <string name="title_activity_menu">Hexorms</string>
     <string name="choose_size">Choose size of the board</string>
-    <string name="start_game_button">Start simulation!</string>
+    <string name="start_simulation_button">Start simulation!</string>
     <string name="about">About</string>
     <string name="worms_count">Worms count</string>
     <string name="bacteria_factor">Bacteria factor</string>
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem.
-        Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque
-        semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula
-        ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus
-        aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet
-        lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare,
-        ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede
-        metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam
-        rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.</string>
-
+    <string name="info"><![CDATA[<b>Simulation</b> is about creating worms, in a board of hexes, which can move in randomly chosen direction.
+        Each time worm steps into the hex where bacteria is on worm life will be expanded. Otherwise worm will loose one unit of health.
+        After gaining maximum of health units the worm will expand into two. When health pool is equal to 0 worm dies. Simulation lasts until all worms are dead.
+        <br><b>The board</b> makes a whole. Worm can go from top to bottom and from right to left.<br><br>
+        <b>Board size:</b> choose a board size of simulation, you can set width and height from 3 to 18 hexes long.<br><br>
+        <b>Worm count:</b> set number of worms that will appear randomly on the board. The number of worms can be equal from 1 to half area of the board.<br><br>
+        <b>Bacteria factor:</b> set the possibility of bacteria appearance in each and every hex of the board.]]></string>
 </resources>
