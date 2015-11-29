@@ -1,6 +1,5 @@
 package com.fais.hexorms.data;
 
-import java.util.ArrayList;
 
 /**
  * Created by paweldylag on 24/11/15.
@@ -29,6 +28,11 @@ public class HexBoard {
         return newBoard;
     }
 
+    /**
+     * @param hex       Current hex the worm is on
+     * @param direction Counted direction worm moves to
+     * @return Hex where worm should move next
+     */
     public Hex getAdjacentHex(Hex hex, int direction) {
         // TODO: IMPLEMENT THIS
         // move tylko zwraca Hexa dla kierunku -> robak sobie go potem modyfikuje
@@ -214,6 +218,5 @@ public class HexBoard {
     public Hex[][] getBoard() {
         return this.mBoard;
     }
-
 
 }

@@ -5,12 +5,12 @@
     android:background="@color/colorAccent">
 
     <TextView
+        android:id="@+id/info_textview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/lorem"
         android:textSize="@dimen/text_size_titles"
         android:textColor="@android:color/white"
-        android:layout_margin="5dp"
-        android:padding="5dp"/>
+        android:layout_margin="@dimen/textview_padding"
+        android:padding="@dimen/textview_padding"/>
 
 </ScrollView>

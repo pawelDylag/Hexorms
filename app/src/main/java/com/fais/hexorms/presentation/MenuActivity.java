@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,7 +25,10 @@ import android.widget.Toolbar;
 
 import com.fais.hexorms.R;
 import com.fais.hexorms.data.Constants;
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar;
+
+import java.lang.reflect.Field;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,8 +54,8 @@ public class MenuActivity extends Activity {
     TextView wormsCountTextView;
     @Bind(R.id.bacteria_factor)
     TextView bacteriaFactorTextView;
-    @Bind(R.id.start_game_button)
-    Button startButton;
+    @Bind(R.id.start_simulation_button)
+    ButtonRectangle startButton;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
@@ -71,9 +75,13 @@ public class MenuActivity extends Activity {
         // setup Toolbar
         setActionBar(toolbar);
         if (getActionBar() != null) {
+            getActionBar().setIcon(R.mipmap.worm);
             getActionBar().setTitle(R.string.title_activity_menu);
         }
 
+        /*TextView buttonTextView = startButton.getTextView();
+        buttonTextView.setTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_titles));*/
+        setButtonText();
         initPickers();
     }
 
@@ -95,7 +103,7 @@ public class MenuActivity extends Activity {
 
 
 
-    @OnClick(R.id.start_game_button)
+    @OnClick(R.id.start_simulation_button)
     public void onClick(View view) {
         Intent intent = new Intent(getApplicationContext(), SimulationActivity.class);
         Bundle bundle = new Bundle();
@@ -186,6 +194,20 @@ public class MenuActivity extends Activity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+    }
+
+    private void setButtonText(){
+        try {
+            Field textButton = startButton.getClass().getDeclaredField("textButton");
+            textButton.setAccessible(true);
+            TextView textView = (TextView) textButton.get(startButton);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_size_titles));
+            textView.setGravity(Gravity.CENTER);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
 }
