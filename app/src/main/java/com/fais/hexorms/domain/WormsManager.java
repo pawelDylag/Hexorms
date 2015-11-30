@@ -3,6 +3,7 @@ package com.fais.hexorms.domain;
 import android.util.Log;
 
 import com.fais.hexorms.data.Hex;
+import com.fais.hexorms.data.MrWorm;
 import com.fais.hexorms.data.TestWorm;
 import com.fais.hexorms.data.Worm;
 
@@ -31,7 +32,7 @@ public class WormsManager {
     private ArrayList<Worm> buildNewWormList(int wormsCount) {
         ArrayList<Worm> newWorms = new ArrayList<>(wormsCount);
         for (int i = 0; i < wormsCount; i++) {
-            newWorms.add(new TestWorm(wormIdCounter++));
+            newWorms.add(new MrWorm(wormIdCounter++, false));
         }
         return newWorms;
     }
@@ -58,7 +59,7 @@ public class WormsManager {
         while (!properDirection) {
             newHex = simulation.getBoard().getAdjacentHex(worm.getHex(), worm.rotate());
             if (newHex != null) {
-                Log.d("MANAGER", "I am on " + worm.getHex().getX() + "," + worm.getHex().getY() + " trying to move to " + newHex.getX() + "," + newHex.getY());
+                //Log.d("MANAGER", "I am on " + worm.getHex().getX() + "," + worm.getHex().getY() + " trying to move to " + newHex.getX() + "," + newHex.getY());
                 if (newHex.isMovePossible()) {
                     properDirection = true;
                 }
