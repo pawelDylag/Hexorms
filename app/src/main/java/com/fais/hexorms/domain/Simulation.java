@@ -1,5 +1,7 @@
 package com.fais.hexorms.domain;
 
+import android.util.Log;
+
 import com.fais.hexorms.data.Constants;
 import com.fais.hexorms.data.Hex;
 import com.fais.hexorms.data.HexBoard;
@@ -12,15 +14,27 @@ import java.util.Random;
  */
 public class Simulation {
 
+    @SuppressWarnings("unused")
+    private static final String TAG = Simulation.class.getSimpleName();
+
     private double bacteriaFactor;
 
     private WormsManager wormsManager;
     private HexBoard board;
+    private BoardRefreshListener boardRefreshListener;
+
+    public interface BoardRefreshListener {
+        void onBoardRefresh(Hex[][] board);
+    }
 
     public Simulation(int wormsCount, int boardHeight, int boardWidth, double bacteriaFactor) {
         this.bacteriaFactor = bacteriaFactor;
         board = new HexBoard(boardWidth, boardHeight);
         this.wormsManager = new WormsManager(wormsCount, this);
+    }
+
+    public void setBoardRefreshListener(BoardRefreshListener l){
+        this.boardRefreshListener = l;
     }
 
     /**
@@ -30,13 +44,28 @@ public class Simulation {
      * 3. robi ruchy az do smierci ostatniego wormsa
      */
     public void start() {
+        Log.d(TAG, "Start!");
         setupBacteriaaaaaaaaaas();
         setupWooooormmmmssssss();
+        boardRefreshListener.onBoardRefresh(board.getBoard());
         // dzialamy do momentu az nie zdechna wszystkie hexormsy!
-        while (wormsManager.hasWorms()) {
-            wormsManager.makeMoves();
-            // TODO: po zrobieniu ruchow przekazac nowa tablice do outputa na ekran
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    int turnCounter = 0;
+                    while (wormsManager.hasWorms()) {
+                        turnCounter++;
+                        Log.d(TAG, "Turn " + turnCounter);
+                        wormsManager.makeMoves();
+                        boardRefreshListener.onBoardRefresh(board.getBoard());
+                        Thread.sleep(Constants.TURN_DELAY_MILLIS);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 
@@ -49,7 +78,7 @@ public class Simulation {
         Random r = new Random();
         for (int i = 0; i < board.getHeight(); i++) {
             for (int j = 0; j < board.getWidth(); j++) {
-                if (r.nextDouble() < bacteriaFactor) {
+                if (Double.compare(r.nextDouble(), bacteriaFactor) < 0) {
                     board.add(i, j, Constants.BACTERIA_HEX);
                 }
             }
@@ -65,7 +94,7 @@ public class Simulation {
             int x, y;
             x = r.nextInt(board.getWidth());
             y = r.nextInt(board.getHeight());
-            while (!board.isEmptyHex(x,y) || !board.isBacteriaHex(x,y)) {
+            while (!board.isEmptyHex(x,y) && !board.isBacteriaHex(x,y)) {
                 x = r.nextInt(board.getWidth());
                 y = r.nextInt(board.getHeight());
             }

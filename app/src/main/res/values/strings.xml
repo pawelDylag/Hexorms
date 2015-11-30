@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Hexorms</string>
     <string name="title_activity_menu">Hexorms</string>
+    <string name="title_activity_simulation">Simulation</string>
     <string name="choose_size">Choose size of the board</string>
     <string name="start_simulation_button">Start simulation!</string>
     <string name="about">About</string>

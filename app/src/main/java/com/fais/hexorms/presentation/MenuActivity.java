@@ -105,18 +105,8 @@ public class MenuActivity extends Activity {
 
     @OnClick(R.id.start_simulation_button)
     public void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), SimulationActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constants.INTENT_BOARD_WIDTH, boardWidth);
-        bundle.putInt(Constants.INTENT_BOARD_HEIGHT, boardHeight);
-        bundle.putInt(Constants.INTENT_WORMS_COUNT, wormsNumber);
-        bundle.putInt(Constants.INTENT_BACTERIA_FACTOR, bacteriaFactorNumber);
-
-        intent.putExtras(bundle);
-        Toast.makeText(this, "width: " + boardWidth + "\nheight: " + boardHeight + "\nworms: " + wormsNumber + "\nbacteria: "+ bacteriaFactorNumber, Toast.LENGTH_SHORT).show();
-        //startActivity(new Intent(MenuActivity.this, Pop.class));
-
-        //startActivity(intent);
+        Intent intent = SimulationActivity.buildIntent(this, boardWidth, boardHeight, wormsNumber, bacteriaFactorNumber);
+        startActivity(intent);
     }
 
     private void initPickers() {

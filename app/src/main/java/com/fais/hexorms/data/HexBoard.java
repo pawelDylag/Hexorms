@@ -1,6 +1,8 @@
 package com.fais.hexorms.data;
 
 
+import android.util.Log;
+
 /**
  * Created by paweldylag on 24/11/15.
  */
@@ -174,7 +176,7 @@ public class HexBoard {
                 return null;
         }
 
-        return new Hex(x, y, hex.getContent());
+        return mBoard[x][y];
     }
 
     /**
