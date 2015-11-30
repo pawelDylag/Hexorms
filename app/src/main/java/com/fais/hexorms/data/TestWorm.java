@@ -27,4 +27,7 @@ public class TestWorm extends Worm {
     public void loseSomeHealth() {
         this.health--;
     }
+
+    @Override
+    public void passGenes(int [] genes) {}
 }

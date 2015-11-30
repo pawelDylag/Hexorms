@@ -14,7 +14,8 @@ public abstract class Worm {
     protected Hex hex;
     protected int direction;
 
-    public Worm(int id) {
+    public Worm(int id)
+    {
         this.id = id;
     }
 
@@ -68,6 +69,8 @@ public abstract class Worm {
      * Odejmuje porcje zycia robalowi.
      */
     public abstract void loseSomeHealth();
+
+    public abstract void passGenes(int [] genes);
 
     public void kill() {
         this.health = 0;
