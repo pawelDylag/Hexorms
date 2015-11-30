@@ -62,9 +62,9 @@ public class MrWorm extends Worm {
     public Worm makeChild(int childId)
     {
         System.out.println("ROBIE DZIECKO!");
-        Worm mychild = new MrWorm(childId,true);
+        MrWorm mychild = new MrWorm(childId,true);
         mychild.passGenes(genes);
-        return new MrWorm(childId, true);
+        return mychild;
     }
 
     @Override
