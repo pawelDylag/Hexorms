@@ -8,11 +8,13 @@ public class Hex {
     private final int x;
     private final int y;
     private int content;
+    private int contentDirection;
 
-    public Hex(int x, int y, int content) {
+    public Hex(int x, int y, int content, int contentDirection) {
         this.x = x;
         this.y = y;
         this.content = content;
+        this.contentDirection = contentDirection;
     }
 
     public int getX() {
@@ -35,4 +37,11 @@ public class Hex {
         return content == Constants.EMPTY_HEX || content == Constants.BACTERIA_HEX;
     }
 
+    public int getContentDirection() {
+        return contentDirection;
+    }
+
+    public void setContentDirection(int contentDirection) {
+        this.contentDirection = contentDirection;
+    }
 }

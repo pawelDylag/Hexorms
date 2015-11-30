@@ -3,16 +3,11 @@ package com.fais.hexorms.presentation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.fais.hexorms.R;
 import com.fais.hexorms.data.Constants;
@@ -82,9 +77,8 @@ public class SimulationActivity extends AppCompatActivity implements Simulation.
         for (int y = 0 ; y < mBoardSize; y++) {
             for (int x = 0; x < mBoardSize; x++){
                 final FrameLayout r = new FrameLayout(this);
-                final TextView t = new TextView(this);
-                t.setGravity(Gravity.CENTER);
-                r.addView(t);
+                final ImageView icon = new ImageView(this);
+                r.addView(icon);
                 final ImageView i = new ImageView(this);
                 i.setImageResource(R.drawable.test_hex);
                 r.addView(i);
@@ -106,13 +100,36 @@ public class SimulationActivity extends AppCompatActivity implements Simulation.
             @Override
             public void run() {
                 for (int y = 0 ; y < mBoardSize; y++) {
-                    for (int x = 0; x < mBoardSize; x++){
-                        FrameLayout r = (FrameLayout) mHexagonalLayout.getChildAt(x + mBoardSize*y);
-                        TextView t = (TextView) r.getChildAt(0);
-                        if (board[y][x].getContent() != Constants.EMPTY_HEX) {
-                            t.setText(board[y][x].getContent() + "");
+                    for (int x = 0; x < mBoardSize; x++) {
+                        FrameLayout r = (FrameLayout) mHexagonalLayout.getChildAt(x + mBoardSize * y);
+                        ImageView t = (ImageView) r.getChildAt(0);
+                        if (board[y][x].getContent() == Constants.EMPTY_HEX) {
+                            t.setImageResource(R.drawable.test_hex);
+                        } else if (board[y][x].getContent() == Constants.BACTERIA_HEX) {
+                            t.setImageResource(R.drawable.bacteria_1);
                         } else {
-                            t.setText("");
+                            switch (board[y][x].getContentDirection()) {
+                                case Constants.DIRECTION_N:
+                                    t.setImageResource(R.drawable.worm_6);
+                                    break;
+                                case Constants.DIRECTION_NE:
+                                    t.setImageResource(R.drawable.worm_1);
+                                    break;
+                                case Constants.DIRECTION_SE:
+                                    t.setImageResource(R.drawable.worm_2);
+                                    break;
+                                case Constants.DIRECTION_S:
+                                    t.setImageResource(R.drawable.worm_3);
+                                    break;
+                                case Constants.DIRECTION_SW:
+                                    t.setImageResource(R.drawable.worm_4);
+                                    break;
+                                case Constants.DIRECTION_NW:
+                                    t.setImageResource(R.drawable.worm_5);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                 }

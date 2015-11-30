@@ -12,6 +12,7 @@ public abstract class Worm {
     // zycie przy ktorym robak sie rozdwaja
     protected int maxHealth;
     protected Hex hex;
+    protected int direction;
 
     public Worm(int id) {
         this.id = id;
@@ -78,6 +79,15 @@ public abstract class Worm {
     private void gainSomeHealth() {
         Log.d("WORM", "OMNOMNOMNOMNOMN BACTERIA!!!!!");
         this.health += Constants.BACTERIA_BONUS;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+        this.hex.setContentDirection(direction);
     }
 
     public int getId() {

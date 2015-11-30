@@ -57,6 +57,9 @@ public class Simulation {
                     while (wormsManager.hasWorms()) {
                         turnCounter++;
                         Log.d(TAG, "Turn " + turnCounter);
+                        wormsManager.makeRotations();
+                        boardRefreshListener.onBoardRefresh(board.getBoard());
+                        Thread.sleep(Constants.TURN_DELAY_MILLIS);
                         wormsManager.makeMoves();
                         boardRefreshListener.onBoardRefresh(board.getBoard());
                         Thread.sleep(Constants.TURN_DELAY_MILLIS);

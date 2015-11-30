@@ -10,12 +10,12 @@ public class Constants {
 
     public static final int BACTERIA_BONUS = 5;
 
-    public static final int DIRECTION_NORTH_EAST = 1;
-    public static final int DIRECTION_EAST = 2;
-    public static final int DIRECTION_SOUTH_EAST = 3;
-    public static final int DIRECTION_SOUTH_WEST = 4;
-    public static final int DIRECTION_WEST = 5;
-    public static final int DIRECTION_NORTH_WEST = 6;
+    public static final int DIRECTION_N = 1;
+    public static final int DIRECTION_NE = 2;
+    public static final int DIRECTION_SE = 3;
+    public static final int DIRECTION_S = 4;
+    public static final int DIRECTION_SW = 5;
+    public static final int DIRECTION_NW = 6;
 
     public static final int TURN_DELAY_MILLIS = 1800;
 
