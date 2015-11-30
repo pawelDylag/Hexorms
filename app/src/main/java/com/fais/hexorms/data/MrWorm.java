@@ -16,10 +16,12 @@ public class MrWorm extends Worm {
     private HashMap<Integer, Double> sortedprobs = new HashMap<Integer, Double>();
     private double probsum = 0.0;
     private boolean inheritGenes = false;
+    private int myid;
 
     public MrWorm(int id, boolean isChild)
     {
         super(id);
+        myid = id;
         this.health = 5;
         this.maxHealth = 12;
         if(isChild)
@@ -31,6 +33,12 @@ public class MrWorm extends Worm {
             System.out.println("WORM NR "+id+" koduje sobie Geny");
             codeMyGenes();
             calcProb();
+        }
+        Iterator<Map.Entry<Integer, Double>> i = sortedprobs.entrySet().iterator();
+        while(i.hasNext())
+        {
+            int key = i.next().getKey();
+            System.out.println("PROB FOR DIR="+key+" IS "+sortedprobs.get(key));
         }
 
     }
@@ -46,9 +54,10 @@ public class MrWorm extends Worm {
         while(i.hasNext())
         {
             int key = i.next().getKey();
-            if(randomdouble>floor && randomdouble<=sortedprobs.get(key))
+            if(randomdouble>floor && randomdouble<=sortedprobs.get(key)+floor)
             {
                 direction = key;
+                System.out.println("ROBAK "+myid+" idzie w kierunku "+direction);
             }
             else
             {
@@ -81,8 +90,8 @@ public class MrWorm extends Worm {
         if(inheritGenes)
         {
             this.genes = genes;
-            int gene = ran.nextInt(5);
-            genes[gene] = ran.nextInt(10);
+            int gene = ran.nextInt(6);
+            genes[gene] = ran.nextInt(10)+1;
             calcProb();
         }
     }
@@ -90,7 +99,8 @@ public class MrWorm extends Worm {
     private void codeMyGenes() {
         Random random = new Random();
         for (int i = 0; i < genes.length; i++) {
-            genes[i] = random.nextInt(10);
+            genes[i] = random.nextInt(10)+1;
+            System.out.println("MY GENE "+(i+1)+" : "+genes[i]);
         }
     }
 
