@@ -2,6 +2,7 @@ package com.fais.hexorms.domain;
 
 import android.util.Log;
 
+import com.fais.hexorms.data.Constants;
 import com.fais.hexorms.data.Hex;
 import com.fais.hexorms.data.MrWorm;
 import com.fais.hexorms.data.TestWorm;
@@ -32,7 +33,7 @@ public class WormsManager {
     private ArrayList<Worm> buildNewWormList(int wormsCount) {
         ArrayList<Worm> newWorms = new ArrayList<>(wormsCount);
         for (int i = 0; i < wormsCount; i++) {
-            newWorms.add(new MrWorm(wormIdCounter++, false));
+            newWorms.add(new TestWorm(wormIdCounter++));
         }
         return newWorms;
     }
@@ -99,7 +100,8 @@ public class WormsManager {
                 simulation.getBoard().clearHex(worm.getHex());
             } else {
                 // ruszamy robaka
-                Hex newHex = simulation.getBoard().getAdjacentHex(worm.getHex(), worm.getDirection());
+                int direction =  worm.getDirection();
+                Hex newHex = simulation.getBoard().getAdjacentHex(worm.getHex(), direction);
                 // ustawiamy robakowi nowego hexa
                 Hex oldHex = worm.getHex();
                 worm.moveToHex(newHex);

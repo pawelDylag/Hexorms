@@ -2,7 +2,11 @@ package com.fais.hexorms.presentation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +20,7 @@ import com.fais.hexorms.domain.Simulation;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SimulationActivity extends AppCompatActivity implements Simulation.BoardRefreshListener {
 
@@ -24,6 +29,9 @@ public class SimulationActivity extends AppCompatActivity implements Simulation.
 
     @Bind(R.id.activity_simulation_hexagonal_layout)
     protected HexagonalLayout mHexagonalLayout;
+
+    @Bind(R.id.fab)
+    protected FloatingActionButton mFab;
 
     private int mBoardSize, mWormCount, mBacteriaFactor;
     private Simulation simulation;
@@ -85,6 +93,11 @@ public class SimulationActivity extends AppCompatActivity implements Simulation.
                 mHexagonalLayout.addView(r);
             }
         }
+    }
+
+    @OnClick(R.id.fab)
+    public void addBacteria() {
+        simulation.addMoreBacteria();
     }
 
     @Override

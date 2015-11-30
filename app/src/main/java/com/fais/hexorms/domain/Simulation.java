@@ -23,6 +23,8 @@ public class Simulation {
     private HexBoard board;
     private BoardRefreshListener boardRefreshListener;
 
+    private boolean addBacteriaFlag;
+
     public interface BoardRefreshListener {
         void onBoardRefresh(Hex[][] board);
     }
@@ -31,6 +33,7 @@ public class Simulation {
         this.bacteriaFactor = bacteriaFactor;
         board = new HexBoard(boardSize);
         this.wormsManager = new WormsManager(wormsCount, this);
+        this.addBacteriaFlag = true;
     }
 
     public void setBoardRefreshListener(BoardRefreshListener l){
@@ -55,6 +58,10 @@ public class Simulation {
                 try {
                     int turnCounter = 0;
                     while (wormsManager.hasWorms()) {
+                        if (addBacteriaFlag) {
+                            setupBacteriaaaaaaaaaas();
+                            addBacteriaFlag = false;
+                        }
                         turnCounter++;
                         Log.d(TAG, "Turn " + turnCounter);
                         wormsManager.makeRotations();
@@ -82,7 +89,9 @@ public class Simulation {
         for (int i = 0; i < board.getBoardSize(); i++) {
             for (int j = 0; j < board.getBoardSize(); j++) {
                 if (Double.compare(r.nextDouble(), bacteriaFactor) < 0) {
-                    board.add(i, j, Constants.BACTERIA_HEX);
+                    if (board.isEmptyHex(i,j)) {
+                        board.add(i, j, Constants.BACTERIA_HEX);
+                    }
                 }
             }
         }
@@ -107,5 +116,9 @@ public class Simulation {
 
     public HexBoard getBoard() {
         return board;
+    }
+
+    public void addMoreBacteria() {
+        this.addBacteriaFlag = true;
     }
 }

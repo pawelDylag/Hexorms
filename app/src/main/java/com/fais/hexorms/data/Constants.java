@@ -17,7 +17,10 @@ public class Constants {
     public static final int DIRECTION_SW = 5;
     public static final int DIRECTION_NW = 6;
 
-    public static final int TURN_DELAY_MILLIS = 1800;
+    public static final int TURN_DELAY_MILLIS = 500;
+
+    // ile razy robak ponowi obrot zanim system zatrzyma go w miejscu na 1 ture
+    public static final int WORM_ROTATE_LIMIT = 5;
 
     // intent names
     public static final String INTENT_BOARD_SIZE = "intentBoardSize";

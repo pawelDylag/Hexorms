@@ -15,7 +15,7 @@ public class TestWorm extends Worm {
 
     @Override
     public int rotate() {
-        return (new Random().nextInt(5) + 1);
+        return (new Random().nextInt(6) + 1);
     }
 
     @Override
