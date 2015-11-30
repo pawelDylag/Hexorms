@@ -17,11 +17,10 @@ public class Constants {
     public static final int DIRECTION_WEST = 5;
     public static final int DIRECTION_NORTH_WEST = 6;
 
-    public static final int TURN_DELAY_MILLIS = 800;
+    public static final int TURN_DELAY_MILLIS = 1800;
 
     // intent names
-    public static final String INTENT_BOARD_WIDTH = "intentBoardWidth";
-    public static final String INTENT_BOARD_HEIGHT = "intentBoardHeight";
+    public static final String INTENT_BOARD_SIZE = "intentBoardSize";
     public static final String INTENT_WORMS_COUNT = "intentWormsCount";
     public static final String INTENT_BACTERIA_FACTOR = "intentBacteriaFactor";
 

@@ -27,9 +27,9 @@ public class Simulation {
         void onBoardRefresh(Hex[][] board);
     }
 
-    public Simulation(int wormsCount, int boardHeight, int boardWidth, double bacteriaFactor) {
+    public Simulation(int wormsCount, int boardSize, double bacteriaFactor) {
         this.bacteriaFactor = bacteriaFactor;
-        board = new HexBoard(boardWidth, boardHeight);
+        board = new HexBoard(boardSize);
         this.wormsManager = new WormsManager(wormsCount, this);
     }
 
@@ -76,8 +76,8 @@ public class Simulation {
      */
     private void setupBacteriaaaaaaaaaas() {
         Random r = new Random();
-        for (int i = 0; i < board.getHeight(); i++) {
-            for (int j = 0; j < board.getWidth(); j++) {
+        for (int i = 0; i < board.getBoardSize(); i++) {
+            for (int j = 0; j < board.getBoardSize(); j++) {
                 if (Double.compare(r.nextDouble(), bacteriaFactor) < 0) {
                     board.add(i, j, Constants.BACTERIA_HEX);
                 }
@@ -92,11 +92,11 @@ public class Simulation {
         for (Worm worm: wormsManager.getWormList()) {
             Random r = new Random();
             int x, y;
-            x = r.nextInt(board.getWidth());
-            y = r.nextInt(board.getHeight());
+            x = r.nextInt(board.getBoardSize());
+            y = r.nextInt(board.getBoardSize());
             while (!board.isEmptyHex(x,y) && !board.isBacteriaHex(x,y)) {
-                x = r.nextInt(board.getWidth());
-                y = r.nextInt(board.getHeight());
+                x = r.nextInt(board.getBoardSize());
+                y = r.nextInt(board.getBoardSize());
             }
             worm.setHex(board.add(x, y, worm.getId()));
         }

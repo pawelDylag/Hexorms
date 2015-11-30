@@ -1,29 +1,25 @@
 package com.fais.hexorms.data;
 
 
-import android.util.Log;
-
 /**
  * Created by paweldylag on 24/11/15.
  */
 public class HexBoard {
 
-    private final int width;
-    private final int height;
+    private final int boardSize;
 
     private final Hex[][] mBoard;
 
-    public HexBoard(int width, int height) {
+    public HexBoard(int boardSize) {
         // init new board with hex items
-        this.width = width;
-        this.height = height;
-        mBoard = buildNewBoard(width, height);
+        this.boardSize = boardSize;
+        mBoard = buildNewBoard(boardSize);
     }
 
-    private Hex[][] buildNewBoard(int width, int height) {
-        Hex[][] newBoard = new Hex[width][height];
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
+    private Hex[][] buildNewBoard(int boardSize) {
+        Hex[][] newBoard = new Hex[boardSize][boardSize];
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
                 newBoard[j][i] = new Hex(j, i, Constants.EMPTY_HEX);
             }
         }
@@ -40,8 +36,8 @@ public class HexBoard {
         // move tylko zwraca Hexa dla kierunku -> robak sobie go potem modyfikuje
         int x = hex.getX();
         int y = hex.getY();
-        int last_x = width - 1;
-        int last_y = height - 1;
+        int last_x = boardSize - 1;
+        int last_y = boardSize - 1;
 
         switch (direction) {
 
@@ -209,12 +205,8 @@ public class HexBoard {
         return mBoard[x][y].getContent() == Constants.BACTERIA_HEX;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+    public int getBoardSize() {
+        return boardSize;
     }
 
     public Hex[][] getBoard() {

@@ -10,4 +10,5 @@
     tools:showIn="@layout/activity_simulation"
     tools:context="com.fais.hexorms.presentation.SimulationActivity">
 
+
 </RelativeLayout>
