@@ -9,6 +9,7 @@ public class Hex {
     private final int y;
     private int content;
     private int contentDirection;
+    private boolean reserved;
 
     public Hex(int x, int y, int content, int contentDirection) {
         this.x = x;
@@ -34,7 +35,7 @@ public class Hex {
     }
 
     public boolean isMovePossible() {
-        return content == Constants.EMPTY_HEX || content == Constants.BACTERIA_HEX;
+        return (content == Constants.EMPTY_HEX || content == Constants.BACTERIA_HEX) && !isReserved();
     }
 
     public int getContentDirection() {
@@ -43,5 +44,23 @@ public class Hex {
 
     public void setContentDirection(int contentDirection) {
         this.contentDirection = contentDirection;
+    }
+
+    public boolean isReserved() {
+        return reserved;
+    }
+
+    public void setReserved(boolean is) {
+        this.reserved = is;
+    }
+
+    @Override
+    public String toString() {
+        return "Hex{" +
+                "x=" + x +
+                ", y=" + y +
+                ", content=" + content +
+                ", contentDirection=" + contentDirection +
+                '}';
     }
 }

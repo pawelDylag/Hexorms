@@ -14,8 +14,18 @@ public class TestWorm extends Worm {
     }
 
     @Override
-    public int rotate() {
-        return (new Random().nextInt(6) + 1);
+    public int rotate(boolean[] b) {
+        boolean properDirection = false;
+        int guess = Constants.NO_DIRECTION;
+        int guessCounter = 0;
+        while (!properDirection || guessCounter == 10) {
+            guessCounter++;
+            guess = new Random().nextInt(6) + 1;
+            if (b[guess - 1]) {
+                properDirection = true;
+            }
+        }
+        return guess;
     }
 
     @Override

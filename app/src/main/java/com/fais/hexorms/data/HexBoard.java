@@ -39,7 +39,7 @@ public class HexBoard {
         int y = hex.getY();
         int last_x = boardSize - 1;
         int last_y = boardSize - 1;
-        Log.d("HexBoard", "getAdjecentHex(): " + x + "," + y + "  direction=" + direction);
+//        Log.d("HexBoard", "getAdjecentHex(): " + x + "," + y + "  direction=" + direction);
         switch (direction) {
             case Constants.DIRECTION_N: {
                 if (y == 0) {
@@ -162,7 +162,7 @@ public class HexBoard {
             }
 
         }
-        Log.d("HexBoard", "getAdjecentHex(): result -> " + x + "," + y );
+//        Log.d("HexBoard", "getAdjecentHex(): result -> " + x + "," + y );
         return mBoard[x][y];
     }
     /**
@@ -176,6 +176,8 @@ public class HexBoard {
         to.setContent(from.getContent());
         to.setContentDirection(from.getContentDirection());
         from.setContent(Constants.EMPTY_HEX);
+        from.setContentDirection(Constants.NO_DIRECTION);
+        from.setReserved(false);
     }
 
     public Hex add(int x, int y, int id, int direction) {

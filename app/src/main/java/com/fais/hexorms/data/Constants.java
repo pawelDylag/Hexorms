@@ -18,7 +18,7 @@ public class Constants {
     public static final int DIRECTION_SW = 5;
     public static final int DIRECTION_NW = 6;
 
-    public static final int TURN_DELAY_MILLIS = 500;
+    public static final int TURN_DELAY_MILLIS = 1000;
 
     // intent names
     public static final String INTENT_BOARD_SIZE = "intentBoardSize";

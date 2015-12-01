@@ -109,13 +109,17 @@ public abstract class Worm {
         this.hex = hex;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     @Override
     public String toString() {
         return "Worm{" +
                 "id=" + id +
                 ", health=" + health +
                 ", maxHealth=" + maxHealth +
-                ", hex=" + hex +
+                ", hex=" + hex.getX() + "," + hex.getY() +
                 ", direction=" + direction +
                 '}';
     }

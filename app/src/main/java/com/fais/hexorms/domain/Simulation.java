@@ -63,10 +63,10 @@ public class Simulation {
                             setupBacteriaaaaaaaaaas();
                             addBacteriaFlag = false;
                         }
-                        wormsManager.makeMoves();
+                        wormsManager.makeRotations();
                         boardRefreshListener.onBoardRefresh(board.getBoard());
                         Thread.sleep(Constants.TURN_DELAY_MILLIS);
-                        wormsManager.makeRotations();
+                        wormsManager.makeMoves();
                         boardRefreshListener.onBoardRefresh(board.getBoard());
                         Thread.sleep(Constants.TURN_DELAY_MILLIS);
                     }

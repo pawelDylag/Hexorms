@@ -9,6 +9,7 @@ public class MrWorm extends Worm {
     private double probsum = 0.0;
     private boolean inheritGenes = false;
     private int myid;
+    private int previous_dir = 1;
 
     public MrWorm(int id, boolean isChild)
     {
@@ -40,42 +41,55 @@ public class MrWorm extends Worm {
     {
         double maxProb = 0.0;
         double floor = 0;
+        double ceiling;
         int direction = -1;
         ArrayList<Integer> available_keys = new ArrayList<>();
         for(int i=0; i<occupied.length; i++)
         {
-            if(occupied[i]==true)
+            if(occupied[i] == true)
             {
-                available_keys.add(i);
+                available_keys.add(i+1);
             }
         }
         for(int k=0; k<available_keys.size(); k++)
         {
             maxProb = maxProb + sortedprobs.get(available_keys.get(k));
         }
+        System.out.println("MAXPROB: "+maxProb);
         Random ran = new Random();
         double randomdouble = ran.nextDouble();
         randomdouble = randomdouble * maxProb;
+        ceiling = maxProb;
+        System.out.println("RANDOM: "+randomdouble);
         Iterator<Map.Entry<Integer, Double>> i = sortedprobs.entrySet().iterator();
         while(i.hasNext())
         {
             int key = i.next().getKey();
-            if(occupied[key]==false)
+            if(occupied[key-1]==false)
             {
+                System.out.println("OMMITING KEY: "+key);
                 // Ommit this key
             }
             else
             {
-                if (randomdouble > floor && randomdouble <= sortedprobs.get(key) + floor)
+                ceiling = sortedprobs.get(key)+floor;
+                System.out.println("FLOOR: "+floor+" , "+"CEILING: "+ceiling+" , "+"KEY: "+key);
+                if (randomdouble > floor && randomdouble <= ceiling)
                 {
                     direction = key;
+                    previous_dir = direction;
                     System.out.println("ROBAK " + myid + " idzie w kierunku " + direction);
+                    break;
                 }
                 else
                 {
-                    floor = sortedprobs.get(key);
+                    floor = floor + sortedprobs.get(key);
                 }
             }
+        }
+        if(direction==-1)
+        {
+            direction = previous_dir;
         }
         return direction;
     }

@@ -9,6 +9,7 @@ import com.fais.hexorms.data.TestWorm;
 import com.fais.hexorms.data.Worm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -33,7 +34,7 @@ public class WormsManager {
     private ArrayList<Worm> buildNewWormList(int wormsCount) {
         ArrayList<Worm> newWorms = new ArrayList<>(wormsCount);
         for (int i = 0; i < wormsCount; i++) {
-            newWorms.add(new TestWorm(wormIdCounter++));
+            newWorms.add(new MrWorm(wormIdCounter++, false));
         }
         return newWorms;
     }
@@ -60,7 +61,11 @@ public class WormsManager {
         for (int i = 0; i< emptyDirections.length; i++ ) {
             emptyDirections[i] = simulation.getBoard().getAdjacentHex(worm.getHex(), (i + 1)).isMovePossible();
         }
-        return worm.rotate();
+        int dir =  worm.rotate(emptyDirections);
+        Log.d("WormsManager", "getNewDirectionForWorm(): " + worm.toString());
+        Log.d("WormsManager", "getNewDirectionForWorm(): empty directions = " + Arrays.toString(emptyDirections));
+        Log.d("WormsManager", "getNewDirectionForWorm(): Chosen direction = " + dir);
+        return dir;
     }
 
 
@@ -72,11 +77,14 @@ public class WormsManager {
             if (!worm.isAlive()) {
                 // jesli jego health spadl do 0, to usuwamy go z listy wormsow;
                 it.remove();
+                worm.kill();
                 simulation.getBoard().clearHex(worm.getHex());
             } else {
                 // obracamy robaka
                 int dir = getNewDirectionForWorm(worm);
                 worm.setDirection(dir);
+                // zarezerwuj miejsce
+                simulation.getBoard().getAdjacentHex(worm.getHex(),dir).setReserved(true);
             }
         }
     }
@@ -88,6 +96,7 @@ public class WormsManager {
     public void makeMoves() {
         ArrayList<Worm> childs = new ArrayList<>();
         // dla kazdego worma
+        Log.d("WormsManager", "wormList = " + wormList.size());
         Iterator it = wormList.iterator();
         while (it.hasNext()) {
             Worm worm = (Worm) it.next();
@@ -99,32 +108,38 @@ public class WormsManager {
                 // ustawiamy robakowi nowego hexa
                 worm.moveToHex(newHex);
                 // rysujemy na planszy w nowym miejscu
+                Log.d("WormsManager", "MOVING FROM " + oldHex.toString() + " TO " + newHex.toString());
                 simulation.getBoard().move(oldHex, newHex);
             }
             // sprawdzamy, czy moze sie podzielic
             if (worm.canSplit()) {
-                for (int i = 0; i < 2; i++) {
-                    Worm child = worm.makeChild(wormIdCounter++);
-                    int childDirection = getNewDirectionForWorm(worm);
-                    if (direction != Constants.NO_DIRECTION) {
-                        Hex childHex = simulation.getBoard().getAdjacentHex(worm.getHex(), childDirection);
-                        child.setHex(childHex);
-                        simulation.getBoard().add(childHex.getX(), childHex.getY(), child.getId(), childDirection);
-                        childs.add(child);
-                    } else {
-                        // child is dead :<
-                        child.kill();
-                    }
+                Log.d("WormsManager", "Ojciec= " + worm.toString());
+                Worm child = worm.makeChild(wormIdCounter++);
+                int childDirection = getNewDirectionForWorm(worm);
+                if (direction != Constants.NO_DIRECTION) {
+                    Hex childHex = simulation.getBoard().getAdjacentHex(worm.getHex(), childDirection);
+                    child.setHex(childHex);
+                    simulation.getBoard().add(childHex.getX(), childHex.getY(), child.getId(), childDirection);
+                    childs.add(child);
+                    Log.d("WormsManager", "Dziecko 1 = " + child.toString());
+                } else {
+                    // child is dead :<
+                    child.kill();
                 }
+                Worm childTwo = worm.makeChild(wormIdCounter++);
+                Hex childHex = worm.getHex();
+                childHex.setContent(childTwo.getId());
+                childHex.setContentDirection(worm.getDirection());
+                childTwo.setHex(worm.getHex());
+                childTwo.setDirection(worm.getDirection());
+                Log.d("WormsManager", "Dziecko 2 = " + childTwo.toString());
+                childs.add(childTwo);
                 worm.kill();
                 it.remove();
-                simulation.getBoard().clearHex(worm.getHex());
             }
         }
         // dodajemy dzieciaki tak, zeby nie ruszyly sie w tej turze, i losujemy im startowe pozycje
-        for (Worm w: childs){
-            wormList.add(w);
-        }
+        wormList.addAll(childs);
     }
 
 
