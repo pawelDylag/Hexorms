@@ -2,7 +2,8 @@ package com.fais.hexorms.data;
 
 import java.util.*;
 
-public class MrWorm extends Worm {
+public class MrWorm extends Worm
+{
     private int[] genes = new int[6];
     private HashMap<Integer, Double> probs = new HashMap<Integer, Double>();
     private HashMap<Integer, Double> sortedprobs = new HashMap<Integer, Double>();
@@ -17,6 +18,7 @@ public class MrWorm extends Worm {
         myid = id;
         this.health = 5;
         this.maxHealth = 12;
+        rounds = 0;
         if(isChild)
         {
             inheritGenes = true;
@@ -39,6 +41,7 @@ public class MrWorm extends Worm {
     @Override
     public int rotate(boolean [] occupied)
     {
+        rounds++;
         double maxProb = 0.0;
         double floor = 0;
         double ceiling;
@@ -121,6 +124,17 @@ public class MrWorm extends Worm {
             genes[gene] = ran.nextInt(6)+1;
             calcProb();
         }
+    }
+
+    @Override
+    public String getProbabilities()
+    {
+        StringBuilder sb = new StringBuilder();
+        for(int k=1; k<=6; k++)
+        {
+            sb.append("Direction: "+k+" , Probability: "+String.format("%.4f",probs.get(k))+"\n");
+        }
+        return sb.toString();
     }
 
     private void codeMyGenes() {

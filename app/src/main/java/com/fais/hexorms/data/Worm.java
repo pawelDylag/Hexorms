@@ -7,6 +7,7 @@ import android.util.Log;
  */
 public abstract class Worm {
 
+    protected int rounds;
     private int id;
     protected int health;
     // zycie przy ktorym robak sie rozdwaja
@@ -76,6 +77,11 @@ public abstract class Worm {
         this.health = 0;
     }
 
+    public int getRounds()
+    {
+        return rounds;
+    }
+
     /**
      * Dodaje zycie po zjedzeniu bakterii
      */
@@ -112,6 +118,10 @@ public abstract class Worm {
     public void setHealth(int health) {
         this.health = health;
     }
+
+    public abstract String getProbabilities();
+
+
 
     @Override
     public String toString() {

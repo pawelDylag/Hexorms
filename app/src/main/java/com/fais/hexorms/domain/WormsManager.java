@@ -18,6 +18,8 @@ import java.util.Iterator;
 public class WormsManager {
 
     private ArrayList<Worm> wormList;
+    private Worm bestWorm = null;
+    private int roundsSurvived = 0;
     private Simulation simulation;
     private int wormIdCounter = 2;
     public WormsManager(int wormsCount, Simulation simulation) {
@@ -73,7 +75,13 @@ public class WormsManager {
         Iterator it = wormList.iterator();
         while (it.hasNext()) {
             Worm worm = (Worm) it.next();
-            if (!worm.isAlive()) {
+            if (!worm.isAlive())
+            {
+                if(worm.getRounds()>roundsSurvived)
+                {
+                    roundsSurvived = worm.getRounds();
+                    bestWorm = worm;
+                }
                 // jesli jego health spadl do 0, to usuwamy go z listy wormsow;
                 it.remove();
                 worm.kill();
@@ -139,6 +147,11 @@ public class WormsManager {
         }
         // dodajemy dzieciaki tak, zeby nie ruszyly sie w tej turze, i losujemy im startowe pozycje
         wormList.addAll(childs);
+    }
+
+    public Worm getBestWorm()
+    {
+        return bestWorm;
     }
 
 }

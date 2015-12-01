@@ -25,10 +25,11 @@ public class Simulation {
     private BoardRefreshListener boardRefreshListener;
     private boolean addBacteriaFlag;
 
-    public interface BoardRefreshListener {
+    public interface BoardRefreshListener
+    {
         void onBoardRefresh(Hex[][] board);
 
-        void simulationSummary(String text);
+        void simulationSummary(int id, int rounds, String probs);
     }
 
     public Simulation(int wormsCount, int boardSize, double bacteriaFactor) {
@@ -56,10 +57,12 @@ public class Simulation {
         // dzialamy do momentu az nie zdechna wszystkie hexormsy!
         new Thread(new Runnable() {
             @Override
-            public void run() {
+            public void run()
+            {
                 try {
                     int turnCounter = 0;
-                    while (wormsManager.hasWorms()) {
+                    while (wormsManager.hasWorms())
+                    {
                         Log.d(TAG, "Turn " + turnCounter++);
                         if (addBacteriaFlag) {
                             setupBacteriaaaaaaaaaas();
@@ -72,7 +75,8 @@ public class Simulation {
                         boardRefreshListener.onBoardRefresh(board.getBoard());
                         Thread.sleep(Constants.TURN_DELAY_MILLIS);
                     }
-                    boardRefreshListener.simulationSummary("dupa text");
+                    Worm botbotbs = wormsManager.getBestWorm();
+                    boardRefreshListener.simulationSummary(botbotbs.getId(),botbotbs.getRounds(),botbotbs.getProbabilities());
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();

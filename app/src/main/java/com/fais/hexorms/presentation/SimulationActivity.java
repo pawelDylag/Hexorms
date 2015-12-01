@@ -153,17 +153,19 @@ public class SimulationActivity extends AppCompatActivity implements Simulation.
         });
     }
 
-    public void simulationSummary(final String dialogMessage) {
+    public void simulationSummary(final int id, final int rounds, final String probs)
+    {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(SimulationActivity.this);
 
                 // Setting Dialog Title
-                alertDialog.setTitle("Simulation summary");
+                alertDialog.setTitle("Worm with ID "+id+" is the winner!");
 
+                String message = "He survived "+rounds+" rounds.\n"+"Genes:\n"+probs;
                 // Setting Dialog Message
-                alertDialog.setMessage(dialogMessage);
+                alertDialog.setMessage(message);
 
                 // Setting Positive "Yes" Button
                 alertDialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {

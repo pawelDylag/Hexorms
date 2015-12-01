@@ -41,6 +41,10 @@ public class TestWorm extends Worm {
     @Override
     public void passGenes(int [] genes) {}
 
-
+    @Override
+    public String getProbabilities()
+    {
+        return "Hej :)";
+    }
 
 }
