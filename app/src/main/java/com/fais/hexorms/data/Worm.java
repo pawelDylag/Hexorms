@@ -32,7 +32,7 @@ public abstract class Worm {
      * Zwraca kierunek w jakim chce poruszyc sie robal.
      * @return
      */
-    public abstract int rotate();
+    public abstract int rotate(boolean [] occupied);
 
     /**
      * Tworzy nowe dziecko o podanym od gory ID

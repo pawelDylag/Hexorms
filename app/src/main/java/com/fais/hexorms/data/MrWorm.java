@@ -1,14 +1,6 @@
 package com.fais.hexorms.data;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class MrWorm extends Worm {
     private int[] genes = new int[6];
@@ -44,24 +36,45 @@ public class MrWorm extends Worm {
     }
 
     @Override
-    public int rotate()
+    public int rotate(boolean [] occupied)
     {
+        double maxProb = 0.0;
         double floor = 0;
-        int direction = 0;
+        int direction = -1;
+        ArrayList<Integer> available_keys = new ArrayList<>();
+        for(int i=0; i<occupied.length; i++)
+        {
+            if(occupied[i]==true)
+            {
+                available_keys.add(i);
+            }
+        }
+        for(int k=0; k<available_keys.size(); k++)
+        {
+            maxProb = maxProb + sortedprobs.get(available_keys.get(k));
+        }
         Random ran = new Random();
         double randomdouble = ran.nextDouble();
+        randomdouble = randomdouble * maxProb;
         Iterator<Map.Entry<Integer, Double>> i = sortedprobs.entrySet().iterator();
         while(i.hasNext())
         {
             int key = i.next().getKey();
-            if(randomdouble>floor && randomdouble<=sortedprobs.get(key)+floor)
+            if(occupied[key]==false)
             {
-                direction = key;
-                System.out.println("ROBAK "+myid+" idzie w kierunku "+direction);
+                // Ommit this key
             }
             else
             {
-                floor = sortedprobs.get(key);
+                if (randomdouble > floor && randomdouble <= sortedprobs.get(key) + floor)
+                {
+                    direction = key;
+                    System.out.println("ROBAK " + myid + " idzie w kierunku " + direction);
+                }
+                else
+                {
+                    floor = sortedprobs.get(key);
+                }
             }
         }
         return direction;
@@ -91,7 +104,7 @@ public class MrWorm extends Worm {
         {
             this.genes = genes;
             int gene = ran.nextInt(6);
-            genes[gene] = ran.nextInt(10)+1;
+            genes[gene] = ran.nextInt(6)+1;
             calcProb();
         }
     }
@@ -99,7 +112,7 @@ public class MrWorm extends Worm {
     private void codeMyGenes() {
         Random random = new Random();
         for (int i = 0; i < genes.length; i++) {
-            genes[i] = random.nextInt(10)+1;
+            genes[i] = random.nextInt(6)+1;
             System.out.println("MY GENE "+(i+1)+" : "+genes[i]);
         }
     }
