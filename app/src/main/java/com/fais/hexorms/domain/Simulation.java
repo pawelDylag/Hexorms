@@ -6,6 +6,7 @@ import com.fais.hexorms.data.Constants;
 import com.fais.hexorms.data.Hex;
 import com.fais.hexorms.data.HexBoard;
 import com.fais.hexorms.data.Worm;
+import com.fais.hexorms.presentation.SimulationActivity;
 
 import java.util.Random;
 
@@ -22,11 +23,12 @@ public class Simulation {
     private WormsManager wormsManager;
     private HexBoard board;
     private BoardRefreshListener boardRefreshListener;
-
     private boolean addBacteriaFlag;
 
     public interface BoardRefreshListener {
         void onBoardRefresh(Hex[][] board);
+
+        void simulationSummary(String text);
     }
 
     public Simulation(int wormsCount, int boardSize, double bacteriaFactor) {
@@ -36,7 +38,7 @@ public class Simulation {
         this.addBacteriaFlag = true;
     }
 
-    public void setBoardRefreshListener(BoardRefreshListener l){
+    public void setBoardRefreshListener(BoardRefreshListener l) {
         this.boardRefreshListener = l;
     }
 
@@ -70,11 +72,14 @@ public class Simulation {
                         boardRefreshListener.onBoardRefresh(board.getBoard());
                         Thread.sleep(Constants.TURN_DELAY_MILLIS);
                     }
+                    boardRefreshListener.simulationSummary("dupa text");
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+
     }
 
 
@@ -88,7 +93,7 @@ public class Simulation {
         for (int i = 0; i < board.getBoardSize(); i++) {
             for (int j = 0; j < board.getBoardSize(); j++) {
                 if (Double.compare(r.nextDouble(), bacteriaFactor) < 0) {
-                    if (board.isEmptyHex(i,j)) {
+                    if (board.isEmptyHex(i, j)) {
                         board.add(i, j, Constants.BACTERIA_HEX, Constants.NO_DIRECTION);
                     }
                 }
@@ -100,12 +105,12 @@ public class Simulation {
      * Ustawia wormsy na losowych miejscach
      */
     private void setupWooooormmmmssssss() {
-        for (Worm worm: wormsManager.getWormList()) {
+        for (Worm worm : wormsManager.getWormList()) {
             Random r = new Random();
             int x, y;
             x = r.nextInt(board.getBoardSize());
             y = r.nextInt(board.getBoardSize());
-            while (!board.isEmptyHex(x,y) && !board.isBacteriaHex(x,y)) {
+            while (!board.isEmptyHex(x, y) && !board.isBacteriaHex(x, y)) {
                 x = r.nextInt(board.getBoardSize());
                 y = r.nextInt(board.getBoardSize());
             }

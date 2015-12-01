@@ -1,6 +1,8 @@
 package com.fais.hexorms.presentation;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -12,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.fais.hexorms.R;
 import com.fais.hexorms.data.Constants;
@@ -54,8 +57,8 @@ public class SimulationActivity extends AppCompatActivity implements Simulation.
         readIntent();
 
         // setup simulation
-        Log.d(TAG, "Setting simulationm: size=" + mBoardSize  + ", worm=" + mWormCount +", bacteria=" + mBacteriaFactor + "%");
-        double bacteriaPercentage = mBacteriaFactor/100d;
+        Log.d(TAG, "Setting simulationm: size=" + mBoardSize + ", worm=" + mWormCount + ", bacteria=" + mBacteriaFactor + "%");
+        double bacteriaPercentage = mBacteriaFactor / 100d;
         simulation = new Simulation(mWormCount, mBoardSize, bacteriaPercentage);
         simulation.setBoardRefreshListener(this);
 
@@ -76,14 +79,14 @@ public class SimulationActivity extends AppCompatActivity implements Simulation.
 
     private void readIntent() {
         Intent i = getIntent();
-        this.mBoardSize = i.getIntExtra(Constants.INTENT_BOARD_SIZE,1);
-        this.mWormCount = i.getIntExtra(Constants.INTENT_WORMS_COUNT,1);
+        this.mBoardSize = i.getIntExtra(Constants.INTENT_BOARD_SIZE, 1);
+        this.mWormCount = i.getIntExtra(Constants.INTENT_WORMS_COUNT, 1);
         this.mBacteriaFactor = i.getIntExtra(Constants.INTENT_BACTERIA_FACTOR, 50);
     }
 
     private void setupBoard() {
-        for (int y = 0 ; y < mBoardSize; y++) {
-            for (int x = 0; x < mBoardSize; x++){
+        for (int y = 0; y < mBoardSize; y++) {
+            for (int x = 0; x < mBoardSize; x++) {
                 final FrameLayout r = new FrameLayout(this);
                 final ImageView icon = new ImageView(this);
                 r.addView(icon);
@@ -112,7 +115,7 @@ public class SimulationActivity extends AppCompatActivity implements Simulation.
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                for (int y = 0 ; y < mBoardSize; y++) {
+                for (int y = 0; y < mBoardSize; y++) {
                     for (int x = 0; x < mBoardSize; x++) {
                         FrameLayout r = (FrameLayout) mHexagonalLayout.getChildAt(x + mBoardSize * y);
                         ImageView t = (ImageView) r.getChildAt(0);
@@ -148,5 +151,34 @@ public class SimulationActivity extends AppCompatActivity implements Simulation.
                 }
             }
         });
+    }
+
+    public void simulationSummary(final String dialogMessage) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(SimulationActivity.this);
+
+                // Setting Dialog Title
+                alertDialog.setTitle("Simulation summary");
+
+                // Setting Dialog Message
+                alertDialog.setMessage(dialogMessage);
+
+                // Setting Positive "Yes" Button
+                alertDialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Write your code here to invoke YES event
+                        Intent intent = new Intent(SimulationActivity.this, MenuActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                // Showing Alert Message
+                alertDialog.show();
+            }
+        });
+
     }
 }

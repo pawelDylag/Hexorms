@@ -20,7 +20,6 @@ public class WormsManager {
     private ArrayList<Worm> wormList;
     private Simulation simulation;
     private int wormIdCounter = 2;
-
     public WormsManager(int wormsCount, Simulation simulation) {
         wormList = buildNewWormList(wormsCount);
         this.simulation = simulation;
@@ -141,6 +140,5 @@ public class WormsManager {
         // dodajemy dzieciaki tak, zeby nie ruszyly sie w tej turze, i losujemy im startowe pozycje
         wormList.addAll(childs);
     }
-
 
 }
