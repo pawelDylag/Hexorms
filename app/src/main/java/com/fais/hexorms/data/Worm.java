@@ -109,5 +109,14 @@ public abstract class Worm {
         this.hex = hex;
     }
 
-
+    @Override
+    public String toString() {
+        return "Worm{" +
+                "id=" + id +
+                ", health=" + health +
+                ", maxHealth=" + maxHealth +
+                ", hex=" + hex +
+                ", direction=" + direction +
+                '}';
+    }
 }

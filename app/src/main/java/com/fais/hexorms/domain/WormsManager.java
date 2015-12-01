@@ -55,21 +55,12 @@ public class WormsManager {
      * @return
      */
     private int getNewDirectionForWorm(Worm worm){
-        boolean properDirection = false;
-        int direction = -1;
-        Hex newHex = null;
-        while (!properDirection) {
-            direction = worm.rotate();
-            newHex = simulation.getBoard().getAdjacentHex(worm.getHex(), direction);
-            if (newHex != null) {
-                // Log.d("MANAGER", "I am on " + worm.getHex().getX() + "," + worm.getHex().getY() + " trying to move to " + newHex.getX() + "," + newHex.getY());
-                if (newHex.isMovePossible()) {
-                    properDirection = true;
-                }
-            }
-
+        boolean[] emptyDirections = new boolean[6];
+        // pass all surrounding directions that are possible to move
+        for (int i = 0; i< emptyDirections.length; i++ ) {
+            emptyDirections[i] = simulation.getBoard().getAdjacentHex(worm.getHex(), (i + 1)).isMovePossible();
         }
-        return direction;
+        return worm.rotate();
     }
 
 
@@ -78,9 +69,15 @@ public class WormsManager {
         Iterator it = wormList.iterator();
         while (it.hasNext()) {
             Worm worm = (Worm) it.next();
-            // obracamy robaka
-            int dir = getNewDirectionForWorm(worm);
-            worm.setDirection(dir);
+            if (!worm.isAlive()) {
+                // jesli jego health spadl do 0, to usuwamy go z listy wormsow;
+                it.remove();
+                simulation.getBoard().clearHex(worm.getHex());
+            } else {
+                // obracamy robaka
+                int dir = getNewDirectionForWorm(worm);
+                worm.setDirection(dir);
+            }
         }
     }
 
@@ -94,37 +91,39 @@ public class WormsManager {
         Iterator it = wormList.iterator();
         while (it.hasNext()) {
             Worm worm = (Worm) it.next();
-            if (!worm.isAlive()) {
-                // jesli jego health spadl do 0, to usuwamy go z listy wormsow;
-                it.remove();
-                simulation.getBoard().clearHex(worm.getHex());
-            } else {
-                // ruszamy robaka
-                int direction =  worm.getDirection();
+            // ruszamy robaka
+            int direction =  worm.getDirection();
+            if (direction != Constants.NO_DIRECTION) {
                 Hex newHex = simulation.getBoard().getAdjacentHex(worm.getHex(), direction);
-                // ustawiamy robakowi nowego hexa
                 Hex oldHex = worm.getHex();
+                // ustawiamy robakowi nowego hexa
                 worm.moveToHex(newHex);
                 // rysujemy na planszy w nowym miejscu
                 simulation.getBoard().move(oldHex, newHex);
-                // sprawdzamy, czy moze sie podzielic
-                if (worm.canSplit()) {
-                    for (int i = 0; i < 2; i++) {
-                        Worm child = worm.makeChild(wormIdCounter++);
-                        child.setHex(worm.getHex());
+            }
+            // sprawdzamy, czy moze sie podzielic
+            if (worm.canSplit()) {
+                for (int i = 0; i < 2; i++) {
+                    Worm child = worm.makeChild(wormIdCounter++);
+                    int childDirection = getNewDirectionForWorm(worm);
+                    if (direction != Constants.NO_DIRECTION) {
+                        Hex childHex = simulation.getBoard().getAdjacentHex(worm.getHex(), childDirection);
+                        child.setHex(childHex);
+                        simulation.getBoard().add(childHex.getX(), childHex.getY(), child.getId(), childDirection);
                         childs.add(child);
+                    } else {
+                        // child is dead :<
+                        child.kill();
                     }
-                    it.remove();
-                    simulation.getBoard().clearHex(worm.getHex());
                 }
+                worm.kill();
+                it.remove();
+                simulation.getBoard().clearHex(worm.getHex());
             }
         }
         // dodajemy dzieciaki tak, zeby nie ruszyly sie w tej turze, i losujemy im startowe pozycje
         for (Worm w: childs){
-            Hex childHex = simulation.getBoard().getAdjacentHex(w.getHex(), getNewDirectionForWorm(w));
-            w.setHex(childHex);
             wormList.add(w);
-            simulation.getBoard().add(childHex.getX(), childHex.getY(), w.getId());
         }
     }
 

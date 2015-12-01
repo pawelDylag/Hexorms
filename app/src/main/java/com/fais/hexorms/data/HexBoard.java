@@ -178,9 +178,10 @@ public class HexBoard {
         from.setContent(Constants.EMPTY_HEX);
     }
 
-    public Hex add(int x, int y, int id) {
+    public Hex add(int x, int y, int id, int direction) {
         Hex hex = mBoard[x][y];
         hex.setContent(id);
+        hex.setContentDirection(direction);
         return hex;
     }
 

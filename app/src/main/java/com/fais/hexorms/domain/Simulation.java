@@ -58,16 +58,15 @@ public class Simulation {
                 try {
                     int turnCounter = 0;
                     while (wormsManager.hasWorms()) {
+                        Log.d(TAG, "Turn " + turnCounter++);
                         if (addBacteriaFlag) {
                             setupBacteriaaaaaaaaaas();
                             addBacteriaFlag = false;
                         }
-                        turnCounter++;
-                        Log.d(TAG, "Turn " + turnCounter);
-                        wormsManager.makeRotations();
+                        wormsManager.makeMoves();
                         boardRefreshListener.onBoardRefresh(board.getBoard());
                         Thread.sleep(Constants.TURN_DELAY_MILLIS);
-                        wormsManager.makeMoves();
+                        wormsManager.makeRotations();
                         boardRefreshListener.onBoardRefresh(board.getBoard());
                         Thread.sleep(Constants.TURN_DELAY_MILLIS);
                     }
@@ -90,7 +89,7 @@ public class Simulation {
             for (int j = 0; j < board.getBoardSize(); j++) {
                 if (Double.compare(r.nextDouble(), bacteriaFactor) < 0) {
                     if (board.isEmptyHex(i,j)) {
-                        board.add(i, j, Constants.BACTERIA_HEX);
+                        board.add(i, j, Constants.BACTERIA_HEX, Constants.NO_DIRECTION);
                     }
                 }
             }
@@ -110,7 +109,8 @@ public class Simulation {
                 x = r.nextInt(board.getBoardSize());
                 y = r.nextInt(board.getBoardSize());
             }
-            worm.setHex(board.add(x, y, worm.getId()));
+            worm.setHex(board.add(x, y, worm.getId(), Constants.DIRECTION_S));
+            worm.setDirection(Constants.DIRECTION_S);
         }
     }
 
